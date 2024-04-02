@@ -27,14 +27,19 @@ function closeNav() {
 
 burger.addEventListener('click', toggleNav);
 
-navLinks.forEach((link) => {
+navLinks.forEach((li) => {
+  const link = li.querySelector('a');
   link.addEventListener('click', (event) => {
     event.preventDefault();
+
     const targetId = link.getAttribute('href');
-    const targetSection = document.querySelector(targetId);
     
+
+    const targetSection = document.querySelector(targetId);
+
     if (targetSection) {
       const headerHeight = document.querySelector('header').offsetHeight;
+
       const targetPosition = targetSection.offsetTop - headerHeight;
       
       window.scrollTo({
