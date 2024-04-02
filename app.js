@@ -14,6 +14,11 @@ function toggleNav() {
     }
   });
   burger.classList.toggle('toggle');
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 function closeNav() {
@@ -40,7 +45,9 @@ navLinks.forEach((li) => {
     if (targetSection) {
       const headerHeight = document.querySelector('header').offsetHeight;
 
-      const targetPosition = targetSection.offsetTop - headerHeight;
+      const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+      // const targetPosition = targetSection.offsetTop - headerHeight;
       
       window.scrollTo({
         top: targetPosition,
