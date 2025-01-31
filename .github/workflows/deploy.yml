@@ -1,9 +1,15 @@
 name: Deploy to GitHub Pages
 
+permissions:
+  contents: write  # GitHub Pages に書き込むための権限を追加
+  pages: write
+  id-token: write
+
 on:
   push:
     branches:
-      - main
+      - gh-pages
+  workflow_dispatch:
 
 jobs:
   deploy:
