@@ -1,39 +1,59 @@
-name: Deploy Vite to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
+  # main ブランチにプッシュした時にデプロイを実行
   push:
-    branches:
-      - main
+    branches: [ main ]
+  # 手動でワークフローを実行可能に
   workflow_dispatch:
 
+# GITHUB_TOKEN のパーミッション設定
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
+# 同時に1つのデプロイメントのみ実行
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: チェックアウトリポジトリ
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Node.js をセットアップ
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: npm
+          node-version: '20'
+          cache: 'npm'
 
-      - name: 依存関係をインストール
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Vite をビルド
+      - name: Build project
         run: npm run build
 
-      - name: GitHub Pages へデプロイ
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages  # `gh-pages` にデプロイ
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
