@@ -176,7 +176,7 @@ export function App() {
       </main>
       <footer>
         <div class="container">
-          <p>&copy; 2024 Digital Wheel LLC. All rights reserved.</p>
+          <p>&copy; 2025 Digital Wheel LLC. All rights reserved.</p>
         </div>
       </footer>
       <script src="app.js?v=2"></script>
