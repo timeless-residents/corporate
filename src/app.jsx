@@ -1,4 +1,6 @@
 import "./app.css";
+import satoMina from "/src/assets/sato-mina.jpg";
+
 
 export function App() {
   return (
@@ -93,7 +95,7 @@ export function App() {
             <h2>代表社員</h2>
             <div class="profile">
               {" "}
-              <img src="/src/assets/sato-mina.jpg" alt="佐藤 美那" />
+              <img src={satoMina} alt="佐藤美那" />
               <div class="profile-text">
                 <h3>佐藤 美那</h3>
                 <p>
