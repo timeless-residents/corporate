@@ -1,21 +1,18 @@
 {
   "name": "corporate",
-  "version": "1.0.0",
-  "main": "app.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/timeless-residents/corporate.git"
+  "dependencies": {
+    "preact": "^10.25.3"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/timeless-residents/corporate/issues"
-  },
-  "homepage": "https://github.com/timeless-residents/corporate#readme",
-  "description": ""
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.3",
+    "vite": "^6.0.5"
+  }
 }
