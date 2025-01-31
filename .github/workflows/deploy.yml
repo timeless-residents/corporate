@@ -1,36 +1,39 @@
-name: Deploy to GitHub Pages
-
-permissions:
-  contents: write  # GitHub Pages に書き込むための権限を追加
-  pages: write
-  id-token: write
+name: Deploy Vite to GitHub Pages
 
 on:
   push:
     branches:
-      - gh-pages
+      - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: チェックアウトリポジトリ
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Node.js をセットアップ
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Node.js のバージョンを指定
+          node-version: 18
+          cache: npm
 
-      - name: Install dependencies
+      - name: 依存関係をインストール
         run: npm install
 
-      - name: Build project
+      - name: Vite をビルド
         run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: GitHub Pages へデプロイ
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # ビルド成果物が出力されるディレクトリ
+          publish_dir: ./dist
+          publish_branch: gh-pages  # `gh-pages` にデプロイ
